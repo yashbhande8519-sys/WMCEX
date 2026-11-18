@@ -1,0 +1,626 @@
+WIRELESS AND MOBILE COMMUNICATION (WMC)
+BEGINNER'S BABY-STEP PRACTICAL GUIDE - EXPERIMENTS 1 TO 9
+============================================================
+Prepared: 18 November 2026
+
+IMPORTANT - READ FIRST
+----------------------
+Your uploaded image is ONLY an experiment INDEX. It gives titles, not your college's
+exact procedures, observation tables, software versions or grading requirements.
+The steps below are beginner-friendly EXAMPLE methods matching those titles.
+They are not claimed to be pages from your original practical manual.
+Where your teacher supplies different steps or hardware, follow that manual.
+
+Phone requirement: Exp 5 = yes (Android phone recommended); Exp 3 and 8 = optional,
+depending on the method. Exp 1, 2, 4, 6, 7, 9 can be completed on a PC.
+In Exp 9, the "Smartphone" is a VIRTUAL device inside Cisco Packet Tracer.
+
+CONTENTS
+--------
+0. Prepare your college PC
+1. Electromagnetic spectrum and wireless bands
+2. Simulation of basic communication system (Tx - Channel - Rx)
+3. Measurement of network, throughput, latency and packet statistics
+4. Frequency reuse concept in cellular system
+5. Study of cellular network parameters using smartphones
+6. Setup and configuration of wireless infrastructure mode
+7. Setup and configuration of access point in WLAN
+8. Bluetooth communication
+9. Smart home automation using Cisco Packet Tracer
+10. Common problems, result checklist and useful official links
+
+====================================================================
+0. WHAT SOFTWARE / HARDWARE SHOULD YOU KEEP READY?
+====================================================================
+Experiment | MAIN software/tool                    | Other requirement
+1          | Notepad / browser / lab notes         | None
+2          | Python 3; matplotlib OPTIONAL         | College PC
+3          | Windows Command Prompt (built in)     | Working network
+           | Optional WiFiman on Android           | Optional phone
+4          | Python 3 AND matplotlib               | College PC
+5          | NetMonster (Android, free app)        | Android with active SIM
+6          | Cisco Packet Tracer                   | College PC
+7          | Cisco Packet Tracer                   | College PC
+8          | Built-in Bluetooth settings           | Two BT-capable devices
+           | Optional Serial Bluetooth Terminal   | Only with HC-05 etc.
+9          | Cisco Packet Tracer                   | College PC
+
+Official links (install only if your college allows installations):
+Python: https://www.python.org/downloads/
+Cisco Packet Tracer: https://www.netacad.com/courses/getting-started-cisco-packet-tracer/1000
+NetMonster: https://play.google.com/store/apps/details?id=cz.mroczis.netmonster
+WiFiman: https://play.google.com/store/apps/details?id=com.ubnt.usurvey
+Matplotlib guide: https://matplotlib.org/stable/install/index.html
+
+A. PREPARING A WINDOWS COLLEGE PC
+  1. Turn on the PC and sign in using the college's permitted account.
+  2. Open File Explorer (Windows key + E).
+  3. Open Desktop (or any folder where your account can save files).
+  4. Right-click -> New -> Folder -> name it WMC_Practicals.
+  5. Open that folder. Click the address bar, type cmd, press Enter.
+     A black Command Prompt opens DIRECTLY in this folder.
+  6. Type: py --version
+     If it shows Python 3.x, Python Launcher is available.
+  7. If 'py' is not recognized, type: python --version
+  8. If BOTH commands fail, ask the lab assistant whether Python is installed.
+     Do not assume installing software is permitted in the exam.
+  9. For experiments needing plots, check: py -m pip show matplotlib
+     OR: python -m pip show matplotlib
+     If the result says not found, you need a lab PC with matplotlib or
+     permission to install it BEFORE the practical. Only if authorized:
+     py -m pip install matplotlib
+     (An internet connection and working pip might be required.)
+ 10. Check the Start menu for Cisco Packet Tracer and open it once.
+     Packet Tracer may request a Cisco Networking Academy login on first use.
+     Arrange an authorized account BEFORE exam day, not during a restricted exam.
+ 11. Use File -> Save As often in Packet Tracer; files end in .pkt.
+ 12. If the PC was wiped/reset, installed software and your saved work may be gone.
+     Keep a permitted backup as directed by your teacher.
+
+B. HOW TO SAVE PYTHON CODE WITHOUT AN IDE
+  1. Press Windows key. Search: Notepad. Open it.
+  2. Paste the complete Python code from Experiment 2 or 4 below.
+  3. Click File -> Save As.
+  4. Browse to WMC_Practicals.
+  5. For 'Save as type', select All Files (*.*).
+  6. File name: exp2_basic_communication.py (for Exp 2)
+     OR exp4_frequency_reuse.py (for Exp 4).
+  7. Encoding: UTF-8. Click Save.
+  8. In File Explorer, check that the name ends in .py, NOT .py.txt.
+  9. Open CMD from that same folder as described above.
+ 10. Run: py exp2_basic_communication.py
+     OR: python exp2_basic_communication.py
+ 11. Take a screenshot of the result if your teacher requests evidence.
+
+====================================================================
+EXPERIMENT 1 - STUDY OF ELECTROMAGNETIC SPECTRUM AND WIRELESS BANDS
+====================================================================
+Aim: Identify electromagnetic radio-frequency bands and their applications.
+Software: None compulsory; Notepad, browser or paper is enough.
+
+BABY STEPS
+ 1. Open Notepad or your practical notebook.
+ 2. Write the heading: Electromagnetic Spectrum and Wireless Bands.
+ 3. Write: frequency is the number of cycles per second, measured in Hz.
+ 4. Write: wavelength (metres) = 300,000,000 / frequency (Hz).
+ 5. Draw a line from LOW frequency / LONG wavelength on the left to
+    HIGH frequency / SHORT wavelength on the right.
+ 6. Make this band table:
+      LF   = 30-300 kHz       (low frequency)
+      MF   = 300 kHz-3 MHz    (medium frequency)
+      HF   = 3-30 MHz         (high frequency)
+      VHF  = 30-300 MHz       (very high frequency)
+      UHF  = 300 MHz-3 GHz    (ultra high frequency)
+      SHF  = 3-30 GHz         (super high frequency)
+      EHF  = 30-300 GHz       (extremely high frequency)
+ 7. Under the table, write real examples:
+      FM radio: about 88-108 MHz
+      Bluetooth: 2.4 GHz band
+      Wi-Fi: 2.4, 5 and (supported regions/devices) 6 GHz bands
+      Cellular: multiple licensed frequency bands, varying by operator
+ 8. Calculate one example: at 100 MHz,
+      wavelength = 300,000,000 / 100,000,000 = 3 metres.
+ 9. Draw a small diagram showing FM radio, cellular, Wi-Fi, Bluetooth.
+10. Write 2 observations: higher frequency means shorter wavelength;
+    different applications use different allocated bands.
+11. If asked for a practical output, show the completed band chart.
+
+RESULT TO WRITE:
+"The radio-frequency spectrum, wireless bands and example uses were studied."
+VIVA: What is frequency? Number of oscillations per second (Hz).
+
+====================================================================
+EXPERIMENT 2 - SIMULATION OF BASIC COMMUNICATION SYSTEM (Tx-Channel-Rx)
+====================================================================
+Aim: Show transmitter data, channel noise and receiver reconstruction.
+Software: Python 3 only for text result; matplotlib optional for a graph.
+No phone needed. This uses a simple BPSK-like binary signal example.
+
+BABY STEPS
+ 1. Confirm that Python works using Section 0A.
+ 2. Open Notepad.
+ 3. Copy ALL the code below. Do not copy the surrounding ===== lines.
+ 4. Save as exp2_basic_communication.py using Section 0B.
+ 5. Open CMD in the same WMC_Practicals folder.
+ 6. Type: py exp2_basic_communication.py
+    (Use 'python' instead of 'py' if that is what works.)
+ 7. Press Enter.
+ 8. Read the lines TRANSMITTER BITS and RECEIVER BITS.
+ 9. Read BIT ERRORS and BIT ERROR RATE (BER).
+10. If matplotlib is installed, a graph opens. Take a screenshot.
+11. If matplotlib is NOT installed, the text result still runs.
+12. Change 0.55 in random.gauss(0, 0.55) to 1.5 to demonstrate MORE noise.
+13. Save and run again; compare the output. Change it back if needed.
+
+COPY THIS CODE:
+--- BEGIN EXP 2 CODE ---
+# Experiment 2: Basic communication system (Transmitter -> Channel -> Receiver)
+# Uses the Python standard library; matplotlib is optional for a graph.
+import random
+
+random.seed(7)  # same example each run
+bits = [random.randint(0, 1) for _ in range(16)]
+transmitted = [1 if bit == 1 else -1 for bit in bits]  # BPSK symbols
+noise = [random.gauss(0, 0.55) for _ in bits]
+received_signal = [a + n for a, n in zip(transmitted, noise)]
+received_bits = [1 if x >= 0 else 0 for x in received_signal]
+errors = sum(a != b for a, b in zip(bits, received_bits))
+ber = errors / len(bits)
+
+print('TRANSMITTER BITS :', bits)
+print('CHANNEL NOISE    :', [round(n, 2) for n in noise])
+print('RECEIVER BITS    :', received_bits)
+print('BIT ERRORS       :', errors)
+print('BIT ERROR RATE   :', round(ber, 4))
+
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    print('Graph skipped: matplotlib is not installed. Text result is valid.')
+else:
+    t = list(range(len(bits)))
+    plt.plot(t, transmitted, 'o-', label='Transmitted symbols')
+    plt.plot(t, received_signal, 'x--', label='Received (with noise)')
+    plt.axhline(0, color='gray', linewidth=1)
+    plt.title('Basic Communication: Tx -> Noisy Channel -> Rx')
+    plt.xlabel('Symbol number')
+    plt.ylabel('Signal level')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+--- END EXP 2 CODE ---
+
+WHAT IT MEANS:
+Tx = source bits converted to +1/-1 symbols.
+Channel = noise gets added to those symbols.
+Rx = values >= 0 are interpreted as 1, else 0.
+BER = bit errors / total transmitted bits.
+
+RESULT TO WRITE:
+"The basic transmitter-channel-receiver system was simulated and BER observed."
+VIVA: Why is the received data sometimes wrong? Noise may change the symbol.
+
+====================================================================
+EXPERIMENT 3 - MEASUREMENT OF NETWORK THROUGHPUT, LATENCY AND PACKETS
+====================================================================
+Aim: Measure delay, packet loss, throughput and simple packet counters.
+Software: Windows CMD (built-in); optionally WiFiman app and web speed test.
+Requirement: A network connection. Phone is OPTIONAL.
+
+METHOD A - COLLEGE PC (NO APP INSTALLATION)
+ 1. Connect the PC to the college's permitted Wi-Fi or Ethernet network.
+ 2. Press Windows key, search CMD, press Enter.
+ 3. Type: ipconfig
+ 4. Press Enter. Find IPv4 Address and Default Gateway. Write them down.
+ 5. Test the local gateway first, using its real address:
+      ping -n 10 192.168.1.1
+    IMPORTANT: 192.168.1.1 is ONLY an example; replace it with the
+    Default Gateway you saw in step 4.
+ 6. Read the Sent, Received and Lost packet counts at the bottom.
+ 7. Read Minimum, Maximum and Average under round trip times.
+ 8. To test an external IP (ONLY if allowed), type:
+      ping -n 10 8.8.8.8
+ 9. If an external ping times out, it may be blocked by the network.
+    It does NOT automatically prove that internet service is down.
+10. Type: netstat -e
+11. Read Bytes and Unicast packets; these are interface counters.
+12. Type: netstat -s
+13. Scroll and read IP/TCP/UDP statistics (availability varies).
+14. Measure throughput: open a browser ONLY if permitted by your lab.
+15. Open https://fast.com or https://www.speedtest.net and run a test.
+16. Write down download and upload results in Mbps. These are measured
+    application throughput, not the theoretical maximum link bit rate.
+17. Take screenshots of CMD and the speed test (if required).
+
+METHOD B - ANDROID SMARTPHONE (OPTIONAL)
+ 1. On Android, open Google Play Store.
+ 2. Install WiFiman (publisher: Ubiquiti).
+ 3. Connect the phone to the lab's allowed Wi-Fi or permitted mobile data.
+ 4. Open WiFiman and allow only the permissions it needs for the chosen test.
+ 5. Open the speed test feature and run it.
+ 6. Write download/upload speeds and any latency/ping shown.
+ 7. Use the app's available network detail or latency views if present.
+ 8. Packet-loss measurement is more reliably demonstrated by CMD ping;
+    WiFiman features/screens can vary by version and network.
+
+FORMULAS AND OBSERVATION TABLE
+Latency = average round trip time from ping (ms).
+Packet loss percent = ((Sent - Received) / Sent) * 100.
+Throughput = useful data transferred per second (e.g., Mbps).
+Fill in ACTUAL measured values; do not make them up.
+
+  Test       | Sent | Received | Lost | Avg RTT(ms) | Down Mbps | Up Mbps
+  Gateway    | ____ | ________ | ____ | ___________ |     -     |    -
+  External   | ____ | ________ | ____ | ___________ |     -     |    -
+  Speed test |   -  |     -    |  -   | ___________ | _________ | _______
+
+RESULT TO WRITE:
+"Latency, packet-loss statistics, packet counters and throughput were observed."
+VIVA: Difference? Latency = delay; throughput = actual transfer rate.
+
+====================================================================
+EXPERIMENT 4 - FREQUENCY REUSE CONCEPT IN CELLULAR SYSTEM
+====================================================================
+Aim: Draw cells with repeated frequency groups to show frequency reuse.
+Software: Python 3 + matplotlib. No phone needed.
+
+BABY STEPS
+ 1. Open CMD and check: py --version
+ 2. Check: py -m pip show matplotlib
+ 3. If missing, use a PC with matplotlib; only install if the teacher permits:
+      py -m pip install matplotlib
+ 4. Open Notepad.
+ 5. Copy the code shown below exactly.
+ 6. Save it as exp4_frequency_reuse.py (file type All Files).
+ 7. Open CMD in the saved folder.
+ 8. Type: py exp4_frequency_reuse.py
+ 9. Press Enter. A window with seven hexagonal markers should appear.
+10. Observe the labels F1, F2 and F3; these represent channel groups.
+11. Write: Frequency reuse assigns the same band to suitably separated cells
+    to increase network capacity while controlling co-channel interference.
+12. If asked for a reuse factor, this illustration uses three labels (F1-F3).
+    It is a conceptual layout, NOT a calibrated tower-site planning map.
+13. Take a screenshot and close the graph window when finished.
+
+COPY THIS CODE (same coordinates/pattern as your earlier practical code):
+--- BEGIN EXP 4 CODE ---
+# Experiment 4: Frequency reuse in a cellular system
+# The coordinates and F1/F2/F3 reuse pattern follow your earlier practical code.
+# Requires matplotlib for the hexagonal plot.
+import matplotlib.pyplot as plt
+
+x = [0, 1.5, 3, 0.75, 2.25, 3.75, 1.5]
+y = [0, 0, 0, 1.3, 1.3, 1.3, 2.6]
+f = ['F1', 'F2', 'F3', 'F3', 'F1', 'F2', 'F2']
+
+for i in range(7):
+    plt.scatter(x[i], y[i], s=23000, marker='h')
+    plt.text(x[i], y[i], f[i], ha='center', va='center')
+
+plt.title('Frequency Reuse')
+plt.axis('equal')
+plt.axis('off')
+plt.show()
+--- END EXP 4 CODE ---
+
+RESULT TO WRITE:
+"A conceptual cellular frequency reuse pattern was plotted using Python."
+VIVA: Why reuse? To serve more users using limited radio spectrum.
+
+====================================================================
+EXPERIMENT 5 - STUDY OF CELLULAR NETWORK PARAMETERS USING SMARTPHONES
+====================================================================
+Aim: Observe the connected cellular network, signal and cell identifiers.
+Software: NetMonster from Google Play.
+Hardware: Android phone with active SIM and cellular signal.
+Note: On some devices, Android restricts information displayed to apps.
+Do NOT expect every parameter on every phone or every SIM/network.
+
+BABY STEPS
+ 1. Before college, open Play Store on YOUR Android phone.
+ 2. Search for "NetMonster" by Michal Mrocek.
+ 3. Install it. Avoid random APK websites.
+ 4. Turn off airplane mode.
+ 5. Confirm the phone has an active SIM and cellular service.
+ 6. For a clearer CELLULAR reading, temporarily switch Wi-Fi OFF.
+ 7. Open NetMonster.
+ 8. Approve required Phone / Location permissions if prompted.
+    Cellular information may not appear without the required permissions.
+ 9. Check your mobile network operator and the technology shown:
+    LTE/4G, NR/5G, etc. Write down only what the app ACTUALLY shows.
+10. Look for measurements such as RSRP, RSRQ and SINR if available.
+11. Look for Cell ID (e.g., ECI/PCI) and band/frequency if available.
+12. Stay in one place; take the first reading.
+13. Move to a window or another permitted area; take a second reading.
+14. If allowed, compare whether signal quality changes.
+15. Screenshot both sets of readings. Hide your phone number and other
+    private identifiers if a submission requires screenshots.
+16. Turn Wi-Fi back on if you originally had it on.
+17. Fill the table from real readings:
+
+  Place | Network (4G/5G) | Band | Cell ID/PCI | RSRP dBm | RSRQ dB | SINR dB
+  A     | ______________ | ____ | ___________ | ________ | _______ | _______
+  B     | ______________ | ____ | ___________ | ________ | _______ | _______
+
+MEANING OF COMMON TERMS
+RSRP = reference signal received power (4G/5G signal level metric).
+RSRQ = reference signal received quality.
+SINR = signal to interference plus noise ratio.
+PCI = physical cell identity. Band = designated radio frequency range.
+Some 5G values may not show if the phone/OS/network does not expose them.
+
+RESULT TO WRITE:
+"Cellular network type, serving-cell information and available signal
+parameters were studied using an Android smartphone."
+VIVA: What is RSRP? A measure of received reference signal power.
+
+====================================================================
+EXPERIMENT 6 - SETUP AND CONFIGURATION OF WIRELESS INFRASTRUCTURE MODE
+====================================================================
+Aim: Connect wireless clients through an access device instead of ad hoc.
+Software: Cisco Packet Tracer (PC). Physical phone NOT required.
+Plan: WRT300N wireless router -> Laptop0 and Laptop1 (wirelessly).
+
+BABY STEPS
+ 1. Open Cisco Packet Tracer and sign in if required.
+ 2. Click File -> New.
+ 3. In the bottom-left category, click Network Devices -> Wireless Devices.
+ 4. Drag WRT300N (Wireless Router) onto the white workspace.
+ 5. Click End Devices. Drag TWO Laptop-PT devices onto the workspace.
+ 6. For each laptop, click it -> Physical tab.
+ 7. If it has a wired network module but no wireless module: power OFF.
+ 8. Remove the wired network module if needed; fit the WPC300N wireless card
+    (or other compatible wireless card shown by your Packet Tracer version).
+ 9. Turn that laptop ON. Repeat steps 6-9 for the other laptop.
+10. Click WRT300N -> GUI tab -> Setup -> Basic Setup.
+11. Find Network Setup / Router IP (LAN address).
+12. Set local IP address to 192.168.10.1 and subnet mask 255.255.255.0.
+13. Enable DHCP Server (if not enabled already).
+14. Set the DHCP start address to 192.168.10.100 (or last octet 100,
+    depending on how your Packet Tracer version displays the field).
+15. Click Save Settings.
+16. Open WRT300N -> GUI -> Wireless -> Basic Wireless Settings.
+17. Set Network Name (SSID) to WMC_INFRA. Click Save Settings.
+18. Open Wireless -> Wireless Security.
+19. Choose WPA2 Personal, enter passphrase WmcLab@123, and Save Settings.
+    This password is an EXAMPLE used only for your simulated lab.
+20. Click Laptop0 -> Desktop -> PC Wireless.
+21. Open Connect/Available Networks, click Refresh if needed.
+22. Select WMC_INFRA -> Connect; enter WmcLab@123 when prompted.
+23. Repeat steps 20-22 for Laptop1.
+24. On each laptop click Desktop -> IP Configuration -> DHCP.
+25. Allow time for the IP to appear; if needed click Fast Forward Time.
+26. Verify the laptops have DIFFERENT IP addresses within 192.168.10.x.
+27. Laptop0 -> Desktop -> Command Prompt. Type:
+      ipconfig
+28. Type: ping 192.168.10.1
+29. Type: ping <ACTUAL IP address of Laptop1>
+    Replace <ACTUAL IP address of Laptop1> with the number you recorded.
+30. Successful replies show communication through the infrastructure WLAN.
+31. Click File -> Save As -> exp6_infrastructure.pkt.
+32. Screenshot the topology, Wi-Fi settings, IPs and ping result if required.
+
+NOTE: The laptops do not need a cable connected to WRT300N in this lab.
+RESULT TO WRITE:
+"Wireless infrastructure mode was configured and connectivity verified."
+VIVA: Infrastructure mode uses an access point/router; ad hoc is peer-to-peer.
+
+====================================================================
+EXPERIMENT 7 - SETUP AND CONFIGURATION OF ACCESS POINT IN WLAN
+====================================================================
+Aim: Connect two wireless clients using a stand-alone access point.
+Software: Cisco Packet Tracer. Phone NOT required.
+Plan: AccessPoint-PT + two wireless Laptop-PT clients, static IPv4 addresses.
+This simple version does NOT need a DHCP server or internet connection.
+
+BABY STEPS
+ 1. Open Packet Tracer -> File -> New.
+ 2. Go to Network Devices -> Wireless Devices.
+ 3. Drag AccessPoint-PT onto the workspace.
+ 4. Go to End Devices; drag TWO Laptop-PT devices beside it.
+ 5. On each laptop -> Physical -> power OFF.
+ 6. Add a compatible wireless adapter such as WPC300N if not already there;
+    remove incompatible wired module first if the slot is occupied.
+ 7. Power ON each laptop.
+ 8. Click AccessPoint-PT -> Config tab.
+ 9. Find its wireless interface (often Port 1 / Wireless, name may vary).
+10. Set SSID to WMC_AP and keep the wireless radio/port enabled.
+11. If this AP model offers WPA2-PSK, set a lab passphrase and use that same
+    passphrase on both laptops. If it does not offer this, follow the model's
+    available security option and your teacher's instructions.
+    Avoid using an open/weakly protected SSID on real networks.
+12. Click Laptop0 -> Desktop -> PC Wireless; refresh nearby networks.
+13. Select WMC_AP and Connect, entering the matching passphrase if set.
+14. Do the same for Laptop1.
+15. Open Laptop0 -> Desktop -> IP Configuration -> Static.
+16. Enter IP Address 192.168.20.11 and mask 255.255.255.0.
+17. Open Laptop1 -> Desktop -> IP Configuration -> Static.
+18. Enter IP Address 192.168.20.12 and mask 255.255.255.0.
+19. Leave Default Gateway blank: both laptops are on the same subnet.
+20. Open Laptop0 -> Desktop -> Command Prompt.
+21. Type: ping 192.168.20.12
+22. If packets reply, wireless clients communicate through the AP.
+23. Optional stronger demonstration: connect AP's Ethernet interface to a
+    switch and a wired PC, if your AP model has a compatible Ethernet module.
+    Assign wired PC an unused 192.168.20.x/24 IP and ping it from a laptop.
+24. File -> Save As -> exp7_access_point.pkt.
+25. Screenshot AP SSID, topology, IP settings and successful ping.
+
+RESULT TO WRITE:
+"A wireless access point was configured and client connectivity was tested."
+VIVA: A stand-alone AP bridges wireless clients onto a local area network.
+
+====================================================================
+EXPERIMENT 8 - BLUETOOTH COMMUNICATION
+====================================================================
+Aim: Pair Bluetooth devices and demonstrate a working wireless exchange.
+Software: Bluetooth settings built into Android/Windows; usually NO app.
+Hardware: Any compatible Bluetooth pair, such as phone + BT speaker,
+phone + another Android phone, or phone + Bluetooth-capable Windows PC.
+
+EASIEST METHOD A - SMARTPHONE + BLUETOOTH SPEAKER/EARBUDS
+ 1. Charge the Bluetooth speaker/earbuds and your phone.
+ 2. Switch ON the speaker/earbuds.
+ 3. Put the speaker/earbuds into pairing mode (see its button instructions).
+ 4. Android phone -> Settings -> Connected devices / Bluetooth.
+ 5. Switch Bluetooth ON.
+ 6. Tap Pair new device (wording differs by Android brand).
+ 7. Select your speaker/earbuds from Available devices.
+ 8. Confirm any pairing prompt.
+ 9. Wait for status Connected.
+10. Play a short, permitted audio clip on the phone.
+11. Confirm you hear it from the Bluetooth speaker/earbuds.
+12. Write the connected device name and show the paired status to teacher.
+13. Disconnect/reconnect once to prove the Bluetooth link works.
+
+ALTERNATIVE METHOD B - TRANSFER A FILE OVER BLUETOOTH
+ 1. Confirm your Windows PC actually HAS Bluetooth and working drivers,
+    OR use two Android phones that both support direct Bluetooth file sharing.
+ 2. Turn Bluetooth ON on both sender and receiver.
+ 3. Pair the two devices and confirm the matching pairing code if prompted.
+ 4. If receiving on Windows 11: Settings -> Bluetooth & devices -> Devices.
+ 5. Under Related settings choose Send or receive files via Bluetooth.
+ 6. Choose Receive files; leave it waiting.
+ 7. On an Android sender, select a small photo or .txt file -> Share.
+ 8. Choose Bluetooth IF that sharing option exists on that Android version.
+ 9. Select the paired Windows PC; accept/finish receiving on Windows.
+10. If the phone lacks Bluetooth file sharing, use Method A or your college's
+    prescribed hardware. Do NOT call Quick Share proof of Bluetooth-only
+    file transfer: actual payload may use Wi-Fi Direct.
+11. Record whether transfer succeeded and name/size of test file.
+
+SPECIAL CASE - HC-05/HC-06 BLUETOOTH SERIAL MODULE
+ 1. Only if your teacher has supplied an HC-05/HC-06 or similar module,
+    install Serial Bluetooth Terminal on an Android phone.
+ 2. Power/connect the module using the lab's verified circuit instructions.
+ 3. Pair with the module, then connect in the app and send a short string.
+ 4. A normal Bluetooth speaker is NOT the same as a serial terminal module.
+
+RESULT TO WRITE:
+"Bluetooth devices were paired and communication was demonstrated."
+VIVA: Bluetooth is a short-range wireless technology in the 2.4 GHz band.
+
+====================================================================
+EXPERIMENT 9 - SMART HOME AUTOMATION USING CISCO PACKET TRACER
+====================================================================
+Aim: Build a simulated home gateway and control connected smart devices.
+Software: Cisco Packet Tracer (PC). NO physical smartphone required.
+The Phone/Tablet used below is a SIMULATED device in Packet Tracer.
+
+BABY STEPS
+ 1. Open Packet Tracer -> File -> New.
+ 2. From Network Devices -> Wireless Devices, drag Home Gateway if listed.
+    On some versions it may be in a different network-device subcategory.
+ 3. From End Devices -> Home (or IoT/Home), drag a Lamp and Fan onto canvas.
+ 4. From End Devices, drag one Tablet or Smartphone onto canvas.
+ 5. Click Home Gateway and check its Config/GUI details.
+ 6. Note its Wi-Fi SSID (commonly HomeGateway) and LAN IP address.
+    Many Packet Tracer labs use 192.168.25.1; verify the ACTUAL value.
+ 7. Click simulated Tablet/Smartphone -> Config -> Wireless0.
+ 8. Select/enter the Home Gateway SSID. Match its security settings.
+ 9. Make sure the simulated phone/tablet receives a LAN IP by DHCP.
+10. Click Lamp -> Config -> Wireless0 (or network adapter settings).
+11. Join the SAME Home Gateway SSID; set DHCP if needed.
+12. Click Fan and repeat Step 11.
+13. For Lamp, go to Config -> Settings (or Advanced -> Config -> Settings).
+14. Under 'IoT Server', choose 'Home Gateway'.
+15. For Fan, repeat step 14.
+16. If devices do not show wireless settings, check their installed module
+    under I/O Config/Physical and choose a compatible wireless IoT module.
+17. On the SIMULATED Tablet/Smartphone, open Desktop -> IoT Monitor.
+18. Enter the Home Gateway IP if it is not auto-filled.
+19. Log in using the default lab gateway credentials if unchanged:
+    username admin ; password admin (Packet Tracer SIMULATION only).
+20. Wait until Lamp and Fan appear in the IoT device list.
+21. Click Lamp's device controls and switch it ON, then OFF.
+22. Click Fan's controls and switch it ON, then OFF.
+23. Watch the device icons react on the Packet Tracer workspace.
+24. OPTIONAL AUTOMATION (if your Packet Tracer model supports Conditions):
+    a. Add a Motion Detector from the Home/IoT device list.
+    b. Join it to the gateway and select IoT Server -> Home Gateway.
+    c. Open the gateway's IoT web/monitor interface -> Conditions.
+    d. Add a rule: When motion is detected, set Lamp to On.
+    e. If allowed by the UI, add reverse rule: No motion -> Lamp Off.
+    f. Trigger the motion sensor (often Alt-click in simulation) and observe.
+    Exact names/triggers vary by Packet Tracer version/device model.
+25. Save file: exp9_smart_home.pkt.
+26. Screenshot topology, registered device list, and On/Off result.
+
+RESULT TO WRITE:
+"Smart home IoT devices were connected to a gateway and controlled; optional
+sensor-based automation was tested where supported."
+VIVA: IoT connects smart devices to a network for monitoring and control.
+
+====================================================================
+10. COMMON PROBLEMS AND QUICK FIXES
+====================================================================
+Problem: 'py' is not recognized.
+Fix: Try 'python --version'. If neither works, ask lab assistant to install
+     or provide authorized access to Python before the practical.
+
+Problem: 'No module named matplotlib'.
+Fix: Need matplotlib for Experiment 4 plots. On an authorized machine only:
+     py -m pip install matplotlib
+     Exp 2 will still give a text result without matplotlib.
+
+Problem: Saved filename looks like exp4_frequency_reuse.py.txt.
+Fix: File Explorer -> View -> Show -> File name extensions. Rename to .py,
+     or Save As with 'All Files' from Notepad.
+
+Problem: 'Can't open file ...'.
+Fix: In CMD type 'dir' and confirm the .py filename exists in this folder.
+     Open the folder first and type 'cmd' in its address bar to change to it.
+
+Problem: Cisco Packet Tracer login or launch fails.
+Fix: Arrange the official college software/account before exam day.
+     Do not try to bypass college restrictions.
+
+Problem: Laptop cannot see SSID in Packet Tracer.
+Fix: Check laptop wireless module and power, AP/router SSID, then Refresh.
+     Security type and passphrase must match on both ends.
+
+Problem: Laptop gets no IPv4 from DHCP in Exp 6.
+Fix: Check router DHCP is enabled; set laptop IP Configuration to DHCP again.
+     Wait or click Fast Forward Time. Do not assign duplicate addresses.
+
+Problem: Exp 7 ping fails.
+Fix: Both wireless clients must be connected to the SAME SSID and have
+     DIFFERENT IPs within 192.168.20.0/24, with mask 255.255.255.0.
+
+Problem: NetMonster shows no RSRP/PCI/band.
+Fix: Check cellular service, app permission and Android restrictions.
+     You can record available measurements; not all phones expose all data.
+
+Problem: Bluetooth device not visible.
+Fix: Turn on discovery/pairing mode, keep devices close, check battery and
+     make sure the device isn't already connected to someone else.
+
+Problem: IoT devices missing from Home Gateway.
+Fix: Check Wi-Fi SSID, DHCP/IP, 'IoT Server -> Home Gateway', and login.
+
+FINAL EXAM-DAY CHECKLIST
+------------------------
+[ ] Know which Experiments need Python: 2 and 4.
+[ ] Verify matplotlib for Exp 4 BEFORE the exam.
+[ ] Know which need Packet Tracer: 6, 7 and 9.
+[ ] Know which is mainly smartphone: 5 (NetMonster).
+[ ] Know Exp 3 can use CMD, without phone.
+[ ] Know Exp 8 needs Bluetooth hardware, often NO separate app.
+[ ] Save .py files and .pkt simulations in permitted locations.
+[ ] Keep a diagram/output screenshot or observation table for each lab.
+[ ] Only use networks, devices and installations approved by the college.
+
+REFERENCE LINKS (BACKGROUND, NOT YOUR COLLEGE'S OWN MANUAL)
+----------------------------------------------------------
+Cisco Packet Tracer: https://www.netacad.com/courses/getting-started-cisco-packet-tracer/1000
+Cisco WRT300N GUI guide: https://tutorials.ptnetacad.net/help/default/GUI_wrt300n.htm
+Cisco IoT devices and server: https://tutorials.ptnetacad.net/help/default/iot_using_things.htm
+Cisco smart-home practice example:
+https://sayed-elsayed-git.github.io/iot/Connect_Devices_to_a_Home_Gateway_and_Monitor_Your_Network.htm
+Bluetooth file transfer (Windows):
+https://support.microsoft.com/en-us/windows/hardware/bluetooth/send-and-receive-files-over-bluetooth-in-windows
+NetMonster official: https://netmonster.app/
+WiFiman official Google Play:
+https://play.google.com/store/apps/details?id=com.ubnt.usurvey
+
+END OF GUIDE
